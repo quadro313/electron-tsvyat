@@ -1,10 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
+import store from './store';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -16,9 +17,15 @@ protocol.registerStandardSchemes(['app'], { secure: true })
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 800, height: 600, webPreferences: {
-    nodeIntegration: true
-  } })
+  let options = {
+    width: store.state.programSettings.width,
+    height: store.state.programSettings.height,
+    frame: false,
+    maximizable: false,
+    resizable: false,
+    webPreferences: { nodeIntegration: true }
+  }
+  win = new BrowserWindow(options)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -34,6 +41,15 @@ function createWindow () {
     win = null
   })
 }
+
+ipcMain.on("appEvent", (event, args) => {
+  let p = args.payload;
+  if(p === "minimize") win.minimize();
+  if(p === "close") {
+    win = null;
+    app.quit();
+  }
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

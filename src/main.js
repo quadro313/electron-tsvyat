@@ -4,7 +4,12 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 
+import _ from 'lodash';
+import {electron, ipcRenderer} from 'electron'
+
 Vue.config.productionTip = false
+Vue.prototype.$electron = {electron: electron, renderer: ipcRenderer}
+Vue.prototype.$_ = _
 
 new Vue({
   router,

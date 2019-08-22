@@ -1,13 +1,13 @@
 <template>
-  <HelloWorld />
+  <ColorPicker />
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
+import ColorPicker from '../components/ColorPicker';
 
 export default {
   components: {
-    HelloWorld,
+    ColorPicker,
   },
 };
 </script>
