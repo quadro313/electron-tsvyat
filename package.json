@@ -28,6 +28,7 @@
     "electron": "4.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "robotjs": "^0.5.1",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-electron-builder": "^1.4.0",
