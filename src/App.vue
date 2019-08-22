@@ -4,8 +4,8 @@
             <v-btn class="button" to='/' active-class="active" icon tile x-small>
                 <v-icon :color="complementary">mdi-heart</v-icon>
             </v-btn>
-            <v-btn class="button" to='/about' active-class="active" icon tile x-small>
-                <v-icon :color="complementary">mdi-palette</v-icon>
+            <v-btn class="button" @click="appEvent('eyedropper')" icon tile x-small>
+                <v-icon :color="complementary">mdi-eyedropper</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn class="button" ref="minimize" @click="appEvent('minimize')" icon tile x-small>
@@ -42,6 +42,9 @@
                 if (event === "minimize" || event === "close") {
                     this.$refs[event].$el.blur();
                     this.$electron.renderer.send("appEvent", {payload: event});
+                }
+                if(event === 'eyedropper') {
+                    this.$electron.renderer.send('eyedropper');
                 }
             }
         }
