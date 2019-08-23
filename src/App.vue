@@ -2,10 +2,7 @@
     <v-app>
         <v-system-bar class="appBar" :color="color" dense app>
             <v-btn class="button" to='/' active-class="active" icon tile x-small>
-                <v-icon :color="complementary">mdi-heart</v-icon>
-            </v-btn>
-            <v-btn class="button" @click="appEvent('eyedropper')" icon tile x-small>
-                <v-icon :color="complementary">mdi-eyedropper</v-icon>
+                <v-icon :color="complementary">mdi-flask</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn class="button" ref="minimize" @click="appEvent('minimize')" icon tile x-small>
