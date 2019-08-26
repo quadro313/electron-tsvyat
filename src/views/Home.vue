@@ -84,6 +84,10 @@
                       let v = this.$store.getters.getColorAs('rgb_array');
                       this.selectedColor = v;
                   } break;
+                  case 'HSL': {
+                      let v = this.$store.getters.getColorAs('hsl');
+                      this.selectedColor = v;
+                  }
               }
           }
         },
