@@ -43,7 +43,7 @@
                 <v-card :color="color" raised outlined>
                     <v-container>
                         <v-row align="stretch">
-                            <v-text-field v-model="hex"></v-text-field>
+                            
                         </v-row>
                     </v-container>
                 </v-card>
@@ -78,14 +78,6 @@
             },
             colorLimits() {
                 return this.$store.getters.getColorLimits;
-            },
-            hex: {
-                get: function() {
-                    return this.$store.getters.getColorAs("hex");
-                },
-                set: function(v) {
-                    this.$store.commit('updateHEX', {value: v});
-                }
             }
         },
         watch: {
