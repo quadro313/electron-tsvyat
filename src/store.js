@@ -149,6 +149,12 @@ export default new Vuex.Store({
       state.color.RGB.value.clamped = rgb;
 
       state.color.XYZ.value = color.RGBtoXYZ(rgb);
+    },
+    updateHEX(state, payload) {
+      let rgb = color.HEXtoRGB(payload.value);
+
+      state.color.RGB.value.clamped = rgb;
+      state.color.RGB.value.original = rgb;
     }
   },
   actions: {
@@ -162,6 +168,9 @@ export default new Vuex.Store({
       }
       else if(m === 'HSL') {
         injectee.commit('updateHSL', payload);
+      }
+      else if(m === 'HEX') {
+        injectee.commit('updateHEX', payload);
       }
     }
   }
