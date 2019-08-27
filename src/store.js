@@ -7,8 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     programSettings: {
-      width: 450,
-      height: 300,
+      width: 500,
+      height: 350,
       pinned: false,
       frame: false,
       resizable: false,
@@ -107,13 +107,16 @@ export default new Vuex.Store({
         case 'hsl': {
           return state.color.HSL.value;
         }
+        case 'hex': {
+          return color.RGBtoHEX(state.color.RGB.value.clamped);
+        }
       }
     },
     getComplementaryAs: state => (format) => {
       switch(format) {
         case 'rgb': {
           let compl = state.color.RGB.value.clamped.map(e => 255 - e);
-          return `rgb(${compl})`
+          return `rgb(${compl})`;
         }
         case 'rgb_array': {
           let compl = state.color.RGB.value.clamped.map(e => 255 - e);

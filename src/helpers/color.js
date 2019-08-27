@@ -110,6 +110,17 @@ module.exports = {
     RGBtoHEX: function(triplet) {
         return triplet.reduce(function(total, current) {
           return total += (current <= 10) ? (0 + current.toString(16)) : current.toString(16)  
-        }, "#");
+        }, "#").toUpperCase();
+    },
+    HEXtoRGB: function(hex) {
+        hex = hex.substr(1)
+        let rgb = [];
+
+        for(let i = 0; i < hex.length; i+=2) {
+            let pair = `${hex[i]}${hex[i+1]}`
+            rgb.push(parseInt(pair, 16));
+        }
+
+        return rgb;
     }
 }
