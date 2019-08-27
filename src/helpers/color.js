@@ -113,7 +113,7 @@ module.exports = {
         }, "#").toUpperCase();
     },
     HEXtoRGB: function(hex) {
-        hex = hex.substr(1)
+        hex = (hex[0] === '#') ? hex.substr(1) : hex;
         let rgb = [];
 
         for(let i = 0; i < hex.length; i+=2) {
