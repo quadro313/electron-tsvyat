@@ -14,6 +14,8 @@ let win
 
 // Scheme must be registered before the app is ready
 protocol.registerStandardSchemes(['app'], { secure: true })
+app.commandLine.appendSwitch("disable-gpu")
+app.commandLine.appendSwitch("enable-transparent-visuals")
 
 function createWindow () {
   // Create the browser window.
@@ -21,6 +23,8 @@ function createWindow () {
     width: store.state.programSettings.width,
     height: store.state.programSettings.height,
     frame: false,
+    transparent: true,
+    backgroundColor: "#00000000",
     maximizable: false,
     resizable: false,
     webPreferences: { nodeIntegration: true }
@@ -81,7 +85,9 @@ app.on('ready', async () => {
 }
 
   }
-  createWindow()
+  setTimeout(function() {
+    createWindow();
+}, 10);
 })
 
 // Exit cleanly on request from parent process in development mode.

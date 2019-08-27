@@ -1,9 +1,10 @@
 <template>
-    <v-app>
+    <v-app :style="{backgroundColor: 'rgba(0,0,0,0)'}">
         <v-system-bar class="appBar" :color="color" dense app>
             <v-btn class="button" to='/' active-class="active" icon tile x-small>
                 <v-icon :color="complementary">mdi-flask</v-icon>
             </v-btn>
+            {{version}}
             <v-spacer></v-spacer>
             <v-btn class="button" ref="minimize" @click="appEvent('minimize')" icon tile x-small>
                 <v-icon :color="complementary">mdi-window-minimize</v-icon>
@@ -12,7 +13,7 @@
                 <v-icon :color="complementary">mdi-window-close</v-icon>
             </v-btn>
         </v-system-bar>
-        <v-content min-height="100%">
+        <v-content class="mainContent" min-height="100%">
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
@@ -24,11 +25,11 @@
     export default {
         name: 'App',
         data: () => ({
-            
+            version: process.versions.electron
         }),
         computed: {
             color() {
-                return this.$store.getters.getColorAs("rgb");
+                return this.$store.getters.getColorAs("alpha");
             },
             complementary() {
                 return this.$store.getters.getComplementaryAs("rgb");
@@ -49,7 +50,12 @@
 </script>
 <style>
     html {
+        background-color: transparent !important;
         overflow: hidden;
+    }
+
+    html, body {
+        height: 0% !important;
     }
 
     .v-btn.active {
@@ -62,6 +68,10 @@
 
     .appBar {
         -webkit-app-region: drag;
+    }
+
+    .mainContent {
+        background-color: transparent !important;
     }
 
     .button {

@@ -41,7 +41,7 @@
         },
         computed: {
             color() {
-                return this.$store.getters.getColorAs("rgb");
+                return this.$store.getters.getColorAs("alpha");
             },
             complementary() {
                 return this.$store.getters.getComplementaryAs("rgb");

@@ -1,5 +1,5 @@
 <template>
-  <v-card :color="backgroundColor" raised outlined>
+  <v-card :color="backgroundColor" outlined>
     <v-container>
       <v-row align="center" dense>
         <v-col cols="10">
@@ -66,7 +66,7 @@
               :color="foregroundColor"
               :track-color="foregroundColor"
               :step=".01"
-              :min="0"
+              :min="0.1"
               :max="1"
               v-model="alpha"
             >

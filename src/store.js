@@ -11,6 +11,8 @@ export default new Vuex.Store({
       height: 350,
       pinned: false,
       frame: false,
+      transparent: true,
+      backgroundColor: "#00000000",
       resizable: false,
       maximizable: false,
       docked: false,
@@ -114,6 +116,9 @@ export default new Vuex.Store({
         }
         case 'hex': {
           return color.RGBtoHEX(state.color.RGB.value.clamped);
+        }
+        case 'alpha': {
+          return `rgba(${state.color.RGB.value.clamped}, ${state.color.alpha})`
         }
       }
     },
