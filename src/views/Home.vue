@@ -3,7 +3,7 @@
                  height="100%" class="py-0 my-0">
         <v-row align="stretch">
             <v-col cols="8" class="py-0 my-0">
-                <ColorPicker :backgroundColor="color" :foregroundColor="complementary" :transparency="transparency"></ColorPicker>
+                <ColorPicker :backgroundColor="color" :foregroundColor="complementary"></ColorPicker>
             </v-col>
             <v-col class="py-0 my-0">
                 <v-card :color="color" raised outlined>

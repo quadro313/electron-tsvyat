@@ -2,6 +2,29 @@
   <v-card :color="backgroundColor" raised outlined>
     <v-container>
       <v-row align="center" dense>
+        <v-col cols="10">
+          <v-btn-toggle v-model="transparency" mandatory>
+            <span :style="{backgroundColor: `${backgroundColor}`, color: `${foregroundColor}`}">Transparency:</span>
+            <v-btn
+              :color="foregroundColor"
+              :style="{backgroundColor: `${backgroundColor}`}"
+              small
+              outlined
+              :value="true"
+              text
+            >ON</v-btn>
+            <v-btn
+              :color="foregroundColor"
+              :style="{backgroundColor: `${backgroundColor}`}"
+              small
+              outlined
+              :value="false"
+              text
+            >OFF</v-btn>
+          </v-btn-toggle>
+        </v-col>
+      </v-row>
+      <v-row align="center" dense>
         <v-col>
           <v-row align="center" :color="foregroundColor" dense class="py-0 my-0">
             <v-btn-toggle v-model="selectedColorMode" mandatory>
@@ -37,8 +60,9 @@
             </v-slider>
           </v-row>
           <v-row dense v-if="transparency">
-              <span class="pt-1" :style="{color: `${foregroundColor}`}">A</span>
+            <span class="pt-1" :style="{color: `${foregroundColor}`}">A</span>
             <v-slider
+              v-on:input="updateColor"
               :color="foregroundColor"
               :track-color="foregroundColor"
               :step=".01"
@@ -46,7 +70,7 @@
               :max="1"
               v-model="alpha"
             >
-            <template #append>
+              <template #append>
                 <input
                   :style="{width: '75px !important',color: `${foregroundColor}`, backgroundColor: `${backgroundColor}`}"
                   type="number"
@@ -64,12 +88,13 @@
 <script>
 export default {
   name: "ColorPicker",
-  props: ["backgroundColor", "foregroundColor", "transparency"],
+  props: ["backgroundColor", "foregroundColor"],
   data() {
     return {
       selectedColorMode: "RGB",
       selectedColor: [0, 0, 0],
-      alpha: 1
+      alpha: 1,
+      transparency: false
     };
   },
   computed: {
@@ -107,7 +132,8 @@ export default {
           : this.selectedColor;
       this.$store.dispatch("updateColor", {
         mode: this.selectedColorMode,
-        value: val
+        value: val,
+        alpha: this.alpha
       });
     }
   },

@@ -72,6 +72,8 @@ export default new Vuex.Store({
       }
     },
     color: {
+      transparencyEnabled: false,
+      alpha: 1,
       RGB: {
         value: {
           original: [255, 255, 255],
@@ -87,6 +89,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    transparencyEnabled: state => {
+      return state.color.transparencyEnabled;
+    },
     getProgramSettings: state => {
       return state.programSettings;
     },
@@ -126,7 +131,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    transparencyMode(state, payload) {
+      state.color.transparencyEnabled = payload.value;
+    },
     updateRGB(state, payload) {
+      state.color.alpha = payload.alpha;
       state.color.RGB.value.original = payload.value.original;
       state.color.RGB.value.clamped = payload.value.clamped;
 
@@ -134,6 +143,7 @@ export default new Vuex.Store({
       state.color.HSL.value = color.RGBtoHSL(payload.value.clamped);
     },
     updateXYZ(state, payload) {
+      state.color.alpha = payload.alpha;
       state.color.XYZ.value = payload.value;
 
       let rgb = color.XYZtoRGB(payload.value);
@@ -142,6 +152,7 @@ export default new Vuex.Store({
       state.color.HSL.value = color.RGBtoHSL(rgb.clamped);
     },
     updateHSL(state, payload) {
+      state.color.alpha = payload.alpha;
       state.color.HSL.value = payload.value;
 
       let rgb = color.HSLtoRGB(payload.value);
