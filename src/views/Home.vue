@@ -2,24 +2,11 @@
     <v-container :style="{backgroundColor: alpha, height: '100%', borderTop: `1px solid ${complementary}`}" min-height="100%"
                  height="100%" class="py-0 my-0">
         <v-row align="stretch">
-            <v-col cols="8" class="py-0 my-0">
+            <v-col cols="8" class="py-0 my-0 px-1">
                 <ColorPicker :backgroundColor="alpha" :foregroundColor="complementary"></ColorPicker>
             </v-col>
-            <v-col class="py-0 my-0">
-                <v-card :color="color" raised outlined>
-                    <v-container>
-                        <v-row align="stretch">
-                            
-                        </v-row>
-                    </v-container>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12">
-                <v-card :color="color" raised outlined>
-                    hi
-                </v-card>
+            <v-col class="py-0 my-0 px-1">
+                <ColorPanel :backgroundColor="alpha" :foregroundColor="complementary"></ColorPanel>
             </v-col>
         </v-row>
     </v-container>
@@ -27,12 +14,14 @@
 
 <script>
     import ColorPicker from '../components/ColorPicker'
+    import ColorPanel from '../components/ColorPanel'
     const color = require('../helpers/color.js');
 
     export default {
         name: "Home",
         components: {
-            ColorPicker
+            ColorPicker,
+            ColorPanel
         },
         data() {
             return {
