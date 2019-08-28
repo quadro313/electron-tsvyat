@@ -123,12 +123,13 @@ module.exports = {
 
         return rgb;
     },
-    complementOf: function(triplet, alpha) {
+    complementOf: function(triplet, alpha, trueComplement) {
         let hsl = this.RGBtoHSL(triplet);
 
         hsl[0] = (hsl[0] < 180) ? (hsl[0] - 180) + 360 : hsl[0] - 180;
         if(alpha) hsl.push(0);
-        if(hsl[2] === 100) hsl[2] = 0;
+        if(hsl[2] === 100 || hsl[2] === 0) hsl[2] = Math.abs(hsl[2] - 100);
+        else if(trueComplement) hsl[2] = Math.abs(hsl[2] - 100);
 
         return this.HSLtoRGB(hsl);
     }
