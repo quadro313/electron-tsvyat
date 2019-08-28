@@ -2,27 +2,6 @@
   <v-card color="rgba(0,0,0,0)" outlined>
     <v-container>
       <v-row align="center" dense>
-        <v-col cols="10">
-          <v-btn-toggle v-model="transparency" mandatory :style="{backgroundColor: `${backgroundColor}`}">
-            <span :style="{color: `${foregroundColor}`}">Transparency:</span>
-            <v-btn
-              :color="foregroundColor"
-              small
-              outlined
-              :value="true"
-              text
-            >ON</v-btn>
-            <v-btn
-              :color="foregroundColor"
-              small
-              outlined
-              :value="false"
-              text
-            >OFF</v-btn>
-          </v-btn-toggle>
-        </v-col>
-      </v-row>
-      <v-row align="center" dense>
         <v-col>
           <v-row align="center" dense class="py-0 my-0">
             <v-btn-toggle v-model="selectedColorMode" mandatory :style="{backgroundColor: `${backgroundColor}`}">
@@ -56,7 +35,7 @@
               </template>
             </v-slider>
           </v-row>
-          <v-row dense v-if="transparency">
+          <v-row dense>
             <span class="pt-1" :style="{color: `${foregroundColor}`}">A</span>
             <v-slider
               v-on:input="updateTransparency"
@@ -90,8 +69,7 @@ export default {
     return {
       selectedColorMode: "RGB",
       selectedColor: [0, 0, 0],
-      alpha: 1,
-      transparency: false
+      alpha: 1
     };
   },
   computed: {
@@ -119,12 +97,6 @@ export default {
           this.selectedColor = v;
         }
       }
-    },
-    transparency: function(newVal) {
-      if(!newVal) {
-        this.alpha = 1;
-      }
-      this.updateTransparency();
     }
   },
   methods: {
@@ -141,7 +113,7 @@ export default {
     },
     updateTransparency() {
       this.$store.commit("updateTransparency", {
-        enabled: this.transparency,
+        enabled: (this.alpha === 1),
         alpha: this.alpha
       })
     }
