@@ -75,18 +75,10 @@ export default new Vuex.Store({
     },
     color: {
       transparencyEnabled: false,
-      alpha: 1,
-      RGB: {
-        value: {
-          original: [255, 255, 255],
-          clamped: [255, 255, 255]
-        }
-      },
-      XYZ: {
-        value: [95.047, 100, 108.883]
-      },
-      HSL: {
-        value: [360, 100, 100]
+      value: {
+        original: [255,255,255],
+        clamped: [255,255,255],
+        alpha: 1
       }
     }
   },
@@ -103,33 +95,33 @@ export default new Vuex.Store({
     getColorAs: state => (format) => {
       switch(format) {
         case 'rgb': {
-          return `rgb(${state.color.RGB.value.clamped})`;
+          return `rgb(${state.color.value.clamped})`;
         }
         case 'rgb_array': {
-          return state.color.RGB.value.clamped;
+          return state.color.value.clamped;
         }
         case 'xyz': {
-          return state.color.XYZ.value;
+          return color.RGBtoXYZ(state.color.value.clamped);
         }
         case 'hsl': {
-          return state.color.HSL.value;
+          return color.RGBtoHSL(state.color.value.clamped);
         }
         case 'hex': {
-          return color.RGBtoHEX(state.color.RGB.value.clamped);
+          return color.RGBtoHEX(state.color.value.clamped);
         }
         case 'alpha': {
-          return `rgba(${state.color.RGB.value.clamped}, ${state.color.alpha})`
+          return `rgba(${state.color.value.clamped}, ${state.color.value.alpha})`
         }
       }
     },
     getComplementaryAs: state => (format) => {
       switch(format) {
         case 'rgb': {
-          let compl = state.color.RGB.value.clamped.map(e => 255 - e);
+          let compl = color.complementOf(state.color.value.clamped);
           return `rgba(${compl}, 1)`;
         }
         case 'rgb_array': {
-          let compl = state.color.RGB.value.clamped.map(e => 255 - e);
+          let compl = state.color.value.clamped.map(e => 255 - e);
           return compl;
         }
       }
@@ -140,37 +132,26 @@ export default new Vuex.Store({
       state.color.transparencyEnabled = payload.value;
     },
     updateRGB(state, payload) {
-      state.color.alpha = payload.alpha;
-      state.color.RGB.value.original = payload.value.original;
-      state.color.RGB.value.clamped = payload.value.clamped;
-
-      state.color.XYZ.value = color.RGBtoXYZ(payload.value.original);
-      state.color.HSL.value = color.RGBtoHSL(payload.value.clamped);
+      state.color.value.alpha = payload.alpha;
+      state.color.value.original = payload.value.original;
+      state.color.value.clamped = payload.value.clamped;
     },
     updateXYZ(state, payload) {
-      state.color.alpha = payload.alpha;
-      state.color.XYZ.value = payload.value;
-
+      state.color.value.alpha = payload.alpha;
       let rgb = color.XYZtoRGB(payload.value);
-      state.color.RGB.value.original = rgb.original;
-      state.color.RGB.value.clamped = rgb.clamped;
-      state.color.HSL.value = color.RGBtoHSL(rgb.clamped);
+      state.color.value.original = rgb.original;
+      state.color.value.clamped = rgb.clamped;
     },
     updateHSL(state, payload) {
-      state.color.alpha = payload.alpha;
-      state.color.HSL.value = payload.value;
-
+      state.color.value.alpha = payload.alpha;
       let rgb = color.HSLtoRGB(payload.value);
-      state.color.RGB.value.original = rgb;
-      state.color.RGB.value.clamped = rgb;
-
-      state.color.XYZ.value = color.RGBtoXYZ(rgb);
+      state.color.value.original = rgb;
+      state.color.value.clamped = rgb;
     },
     updateHEX(state, payload) {
       let rgb = color.HEXtoRGB(payload.value);
-
-      state.color.RGB.value.clamped = rgb;
-      state.color.RGB.value.original = rgb;
+      state.color.value.clamped = rgb;
+      state.color.value.original = rgb;
     }
   },
   actions: {
