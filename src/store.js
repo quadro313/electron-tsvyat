@@ -126,7 +126,7 @@ export default new Vuex.Store({
       switch(format) {
         case 'rgb': {
           let compl = state.color.RGB.value.clamped.map(e => 255 - e);
-          return `rgb(${compl})`;
+          return `rgba(${compl}, 1)`;
         }
         case 'rgb_array': {
           let compl = state.color.RGB.value.clamped.map(e => 255 - e);

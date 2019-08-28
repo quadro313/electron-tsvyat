@@ -1,9 +1,9 @@
 <template>
-  <v-card :color="backgroundColor" outlined>
+  <v-card color="rgba(0,0,0,0)" outlined>
     <v-container>
       <v-row align="center" dense>
         <v-col cols="10">
-          <v-btn-toggle v-model="transparency" mandatory>
+          <v-btn-toggle v-model="transparency" mandatory :style="{backgroundColor: `${backgroundColor}`}">
             <span :style="{backgroundColor: `${backgroundColor}`, color: `${foregroundColor}`}">Transparency:</span>
             <v-btn
               :color="foregroundColor"
@@ -26,8 +26,8 @@
       </v-row>
       <v-row align="center" dense>
         <v-col>
-          <v-row align="center" :color="foregroundColor" dense class="py-0 my-0">
-            <v-btn-toggle v-model="selectedColorMode" mandatory>
+          <v-row align="center" dense class="py-0 my-0">
+            <v-btn-toggle v-model="selectedColorMode" mandatory :style="{backgroundColor: `${backgroundColor}`}">
               <v-btn
                 v-for="c in $_.keys(colorLimits)"
                 :key="c"
@@ -40,7 +40,7 @@
             </v-btn-toggle>
           </v-row>
           <v-row v-for="(val, index) in $_.keys(colorLimits[selectedColorMode])" dense :key="index">
-            <span class="pt-1" :style="{color: `${foregroundColor}`}">{{val}}</span>
+            <span class="pt-1" :style="{color: `${foregroundColor}`, backgroundColor: `${backgroundColor}`}">{{val}}</span>
             <v-slider
               v-on:input="updateColor"
               :color="foregroundColor"
@@ -66,13 +66,13 @@
               :color="foregroundColor"
               :track-color="foregroundColor"
               :step=".01"
-              :min="0.1"
+              :min="0"
               :max="1"
               v-model="alpha"
             >
               <template #append>
                 <input
-                  :style="{width: '75px !important',color: `${foregroundColor}`, backgroundColor: `${backgroundColor}`}"
+                  :style="{width: '75px !important',color: foregroundColor, backgroundColor: backgroundColor}"
                   type="number"
                   v-model="alpha"
                 />

@@ -1,9 +1,9 @@
 <template>
-    <v-container :style="{backgroundColor: color, height: '100%', borderTop: `1px solid ${complementary}`}" min-height="100%"
+    <v-container :style="{backgroundColor: alpha, height: '100%', borderTop: `1px solid ${complementary}`}" min-height="100%"
                  height="100%" class="py-0 my-0">
         <v-row align="stretch">
             <v-col cols="8" class="py-0 my-0">
-                <ColorPicker :backgroundColor="color" :foregroundColor="complementary"></ColorPicker>
+                <ColorPicker :backgroundColor="alpha" :foregroundColor="complementary"></ColorPicker>
             </v-col>
             <v-col class="py-0 my-0">
                 <v-card :color="color" raised outlined>
@@ -40,8 +40,11 @@
             }
         },
         computed: {
-            color() {
+            alpha() {
                 return this.$store.getters.getColorAs("alpha");
+            },
+            color() {
+                return this.$store.getters.getColorAs("rgb");
             },
             complementary() {
                 return this.$store.getters.getComplementaryAs("rgb");

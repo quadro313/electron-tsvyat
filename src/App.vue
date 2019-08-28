@@ -28,8 +28,11 @@
             version: process.versions.electron
         }),
         computed: {
-            color() {
+            alpha() {
                 return this.$store.getters.getColorAs("alpha");
+            },
+            color() {
+                return this.$store.getters.getColorAs("rgb");
             },
             complementary() {
                 return this.$store.getters.getComplementaryAs("rgb");

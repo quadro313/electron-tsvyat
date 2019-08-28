@@ -19,16 +19,9 @@ app.commandLine.appendSwitch("enable-transparent-visuals")
 
 function createWindow () {
   // Create the browser window.
-  let options = {
-    width: store.state.programSettings.width,
-    height: store.state.programSettings.height,
-    frame: false,
-    transparent: true,
-    backgroundColor: "#00000000",
-    maximizable: false,
-    resizable: false,
-    webPreferences: { nodeIntegration: true }
-  }
+  let options = store.getters.getProgramSettings;
+  options.webPreferences = {nodeIntegration: true};
+  
   win = new BrowserWindow(options)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
