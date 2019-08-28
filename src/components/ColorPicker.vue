@@ -4,7 +4,11 @@
       <v-row align="center" dense>
         <v-col>
           <v-row align="center" dense class="py-0 my-0">
-            <v-btn-toggle v-model="selectedColorMode" mandatory :style="{backgroundColor: `${backgroundColor}`}">
+            <v-btn-toggle
+              v-model="selectedColorMode"
+              mandatory
+              :style="{backgroundColor: `${backgroundColor}`}"
+            >
               <v-btn
                 v-for="c in $_.keys(colorLimits)"
                 :key="c"
@@ -13,9 +17,18 @@
                 small
                 outlined
               >{{c}}</v-btn>
+              <v-btn :value="'TEXT'" :color="foregroundColor" small outlined>TEXT</v-btn>
             </v-btn-toggle>
           </v-row>
-          <v-row v-for="(val, index) in $_.keys(colorLimits[selectedColorMode])" dense :key="index">
+          <v-row v-if="selectedColorMode==='TEXT'">
+            <v-text-field label="Hex or color name"></v-text-field>
+          </v-row>
+          <v-row
+            v-else
+            v-for="(val, index) in $_.keys(colorLimits[selectedColorMode])"
+            dense
+            :key="index"
+          >
             <span class="pt-1" :style="{color: `${foregroundColor}`}">{{val}}</span>
             <v-slider
               v-on:input="updateColor"
@@ -113,9 +126,9 @@ export default {
     },
     updateTransparency() {
       this.$store.commit("updateTransparency", {
-        enabled: (this.alpha === 1),
+        enabled: this.alpha === 1,
         alpha: this.alpha
-      })
+      });
     }
   },
   created() {
