@@ -104,7 +104,7 @@ export default new Vuex.Store({
           return state.color.value.clamped;
         }
         case 'xyz': {
-          return color.RGBtoXYZ(state.color.value.clamped);
+          return color.RGBtoXYZ(state.color.value.original);
         }
         case 'hsl': {
           return color.RGBtoHSL(state.color.value.clamped);

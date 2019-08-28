@@ -4,10 +4,9 @@
       <v-row align="center" dense>
         <v-col cols="10">
           <v-btn-toggle v-model="transparency" mandatory :style="{backgroundColor: `${backgroundColor}`}">
-            <span :style="{backgroundColor: `${backgroundColor}`, color: `${foregroundColor}`}">Transparency:</span>
+            <span :style="{color: `${foregroundColor}`}">Transparency:</span>
             <v-btn
               :color="foregroundColor"
-              :style="{backgroundColor: `${backgroundColor}`}"
               small
               outlined
               :value="true"
@@ -15,7 +14,6 @@
             >ON</v-btn>
             <v-btn
               :color="foregroundColor"
-              :style="{backgroundColor: `${backgroundColor}`}"
               small
               outlined
               :value="false"
@@ -33,14 +31,13 @@
                 :key="c"
                 :value="c"
                 :color="foregroundColor"
-                :style="{backgroundColor: `${backgroundColor}`}"
                 small
                 outlined
               >{{c}}</v-btn>
             </v-btn-toggle>
           </v-row>
           <v-row v-for="(val, index) in $_.keys(colorLimits[selectedColorMode])" dense :key="index">
-            <span class="pt-1" :style="{color: `${foregroundColor}`, backgroundColor: `${backgroundColor}`}">{{val}}</span>
+            <span class="pt-1" :style="{color: `${foregroundColor}`}">{{val}}</span>
             <v-slider
               v-on:input="updateColor"
               :color="foregroundColor"
@@ -62,11 +59,11 @@
           <v-row dense v-if="transparency">
             <span class="pt-1" :style="{color: `${foregroundColor}`}">A</span>
             <v-slider
-              v-on:input="updateColor"
+              v-on:input="updateTransparency"
               :color="foregroundColor"
               :track-color="foregroundColor"
               :step=".01"
-              :min="0"
+              :min="0.01"
               :max="1"
               v-model="alpha"
             >
@@ -126,8 +123,8 @@ export default {
     transparency: function(newVal) {
       if(!newVal) {
         this.alpha = 1;
-        this.updateColor();
       }
+      this.updateTransparency();
     }
   },
   methods: {
@@ -141,6 +138,12 @@ export default {
         value: val,
         alpha: this.alpha
       });
+    },
+    updateTransparency() {
+      this.$store.commit("updateTransparency", {
+        enabled: this.transparency,
+        alpha: this.alpha
+      })
     }
   },
   created() {
