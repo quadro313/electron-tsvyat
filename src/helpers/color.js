@@ -124,11 +124,12 @@ module.exports = {
         return rgb;
     },
     complementOf: function(triplet, alpha) {
-        let hsl = RGBtoHSL(triplet);
+        let hsl = this.RGBtoHSL(triplet);
 
         hsl[0] = (hsl[0] < 180) ? (hsl[0] - 180) + 360 : hsl[0] - 180;
         if(alpha) hsl.push(0);
+        if(hsl[2] === 100) hsl[2] = 0;
 
-        return hsl;
+        return this.HSLtoRGB(hsl);
     }
 }
