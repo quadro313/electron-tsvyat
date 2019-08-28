@@ -60,6 +60,7 @@ module.exports = {
         }
 
         let H = h * 60;
+        H += (H < 0) ? 360 : 0;
         let L = (max + min) / 2;
         let S = (L === 0 || L === 1) ? 0 : (chroma / (1 - Math.abs(2 * L - 1)))
 
