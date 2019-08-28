@@ -7,8 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     programSettings: {
-      width: 500,
-      height: 350,
+      width: 450,
+      height: 275,
       pinned: false,
       frame: false,
       transparent: true,
@@ -83,8 +83,11 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    transparencyEnabled: state => {
-      return state.color.transparencyEnabled;
+    transparency: state => {
+      return {
+        enabled: state.color.transparencyEnabled,
+        value: state.color.value.alpha
+      };
     },
     getProgramSettings: state => {
       return state.programSettings;
@@ -128,8 +131,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    transparencyMode(state, payload) {
-      state.color.transparencyEnabled = payload.value;
+    updateTransparency(state, payload) {
+      state.color.transparencyEnabled = payload.enabled;
+      state.color.value.alpha = payload.alpha;
     },
     updateRGB(state, payload) {
       state.color.value.alpha = payload.alpha;
