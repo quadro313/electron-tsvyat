@@ -122,6 +122,12 @@ export default {
           this.selectedColor = v;
         }
       }
+    },
+    transparency: function(newVal) {
+      if(!newVal) {
+        this.alpha = 1;
+        this.updateColor();
+      }
     }
   },
   methods: {
